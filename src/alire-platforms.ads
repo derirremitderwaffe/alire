@@ -26,10 +26,12 @@ package Alire.Platforms with Preelaborate is
 
    type Distributions is (Debian,
                           Ubuntu,
+                          Arch,
                           Distro_Unknown);
 
    type Versions is (Debian_Buster,
                      Ubuntu_Bionic,
+                     arch,
                      Distro_Version_Unknown);
    --  Known flavors of OSs
    --  It turns out that Debian uses no numbers for its non-stable releases, so we'll prefer the codename
@@ -40,11 +42,13 @@ package Alire.Platforms with Preelaborate is
                        Bits_Unknown);
 
    type Package_Managers is (Apt,
+                             Pacman,
                              Packager_Unknown);
 
    function Package_Manager (D : Distributions) return Package_Managers is
      (case D is
-         when Debian | Ubuntu => Apt,
+        when Debian | Ubuntu => Apt,
+        when Arch => Pacman,
          when others => Packager_Unknown);
 
 end Alire.Platforms;
